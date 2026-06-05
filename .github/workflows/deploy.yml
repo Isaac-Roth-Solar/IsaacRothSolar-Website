@@ -1,0 +1,47 @@
+name: Deploy to Hostinger
+
+# Auto-deploys the static site to Hostinger over FTPS whenever code lands on
+# `main` (production) or `staging`. No more manual Redeploy in hPanel.
+#
+# Each environment has its own Hostinger FTP account, scoped to that site's web
+# root, so files upload to "./". Branch selects which account to use.
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   Production (main -> isaacrothsolar.com):
+#     FTP_HOST_PROD       FTP_USERNAME_PROD       FTP_PASSWORD_PROD
+#   Staging  (staging -> stag.isaacrothsolar.com):
+#     FTP_HOST_STAGING    FTP_USERNAME_STAGING    FTP_PASSWORD_STAGING
+
+on:
+  push:
+    branches: [main, staging]
+
+# Never let two deploys for the same branch run at once.
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ github.ref_name == 'main' && secrets.FTP_HOST_PROD || secrets.FTP_HOST_STAGING }}
+          username: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME_PROD || secrets.FTP_USERNAME_STAGING }}
+          password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD_PROD || secrets.FTP_PASSWORD_STAGING }}
+          protocol: ftps
+          port: 21
+          local-dir: ./
+          server-dir: public_html/
+          # Never upload repo/CI plumbing or touch server-managed files.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .htaccess
+            .well-known/**
