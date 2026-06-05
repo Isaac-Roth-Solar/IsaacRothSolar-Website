@@ -36,6 +36,8 @@ jobs:
           password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD_PROD || secrets.FTP_PASSWORD_STAGING }}
           protocol: ftps
           port: 21
+          # Default is 30s; the populated prod web root takes longer to scan.
+          timeout: 600000
           local-dir: ./
           # Prod FTP account logs in inside public_html (web root) -> "./".
           # Staging FTP account logs in at account home -> "public_html/".
