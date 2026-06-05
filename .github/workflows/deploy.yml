@@ -1,16 +1,16 @@
 name: Deploy to Hostinger
 
-# Auto-deploys the static site to Hostinger over SSH/rsync whenever code lands
-# on `main` (production) or `staging`. No more manual Redeploy in hPanel.
+# Auto-deploys the static site to Hostinger over FTPS whenever code lands on
+# `main` (production) or `staging`. No more manual Redeploy in hPanel.
 #
 # Required repository secrets (Settings -> Secrets and variables -> Actions):
-#   SSH_HOST         Hostinger SSH host/IP   (Advanced -> SSH Access)
-#   SSH_USER         Hostinger SSH username  (e.g. u123456789)
-#   SSH_PORT         Hostinger SSH port      (usually 65002)
-#   SSH_PRIVATE_KEY  Private key whose public half is added to Hostinger SSH Access
+#   FTP_HOST      Hostinger FTP host/IP   (Files -> FTP Accounts)
+#   FTP_USERNAME  Hostinger FTP username
+#   FTP_PASSWORD  Hostinger FTP password
 #
 # Deploy targets are defined below. Adjust the staging path if Hostinger created
-# the stag.isaacrothsolar.com subdomain in a different folder.
+# the stag.isaacrothsolar.com subdomain in a different folder, or if the FTP
+# account is scoped to a subdirectory.
 
 on:
   push:
@@ -33,26 +33,26 @@ jobs:
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
             # Production document root.
-            echo "path=public_html" >> "$GITHUB_OUTPUT"
+            echo "dir=public_html/" >> "$GITHUB_OUTPUT"
           else
             # Staging subdomain (stag.isaacrothsolar.com) document root.
-            echo "path=domains/stag.isaacrothsolar.com/public_html" >> "$GITHUB_OUTPUT"
+            echo "dir=domains/stag.isaacrothsolar.com/public_html/" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "${{ secrets.SSH_PORT }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
-
-      - name: Deploy with rsync
-        run: |
-          rsync -rltvz --human-readable \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitignore' \
-            --exclude='.htaccess' \
-            --exclude='.well-known' \
-            -e "ssh -p ${{ secrets.SSH_PORT }} -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new" \
-            ./ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ steps.target.outputs.path }}/"
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./
+          server-dir: ${{ steps.target.outputs.dir }}
+          # Never upload repo/CI plumbing or touch server-managed files.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .htaccess
+            .well-known/**
