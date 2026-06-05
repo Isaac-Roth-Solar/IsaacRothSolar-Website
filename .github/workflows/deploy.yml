@@ -37,7 +37,9 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./
-          server-dir: public_html/
+          # Prod FTP account logs in inside public_html (web root) -> "./".
+          # Staging FTP account logs in at account home -> "public_html/".
+          server-dir: ${{ github.ref_name == 'main' && './' || 'public_html/' }}
           # Never upload repo/CI plumbing or touch server-managed files.
           exclude: |
             **/.git*
