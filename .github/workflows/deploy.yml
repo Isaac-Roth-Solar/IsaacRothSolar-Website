@@ -60,9 +60,10 @@ jobs:
           # Both FTP accounts log in at their site's web root, so upload to "./".
           server-dir: ./
           # Never upload repo/CI plumbing or touch server-managed files.
+          # .htaccess IS deployed (managed in the repo); .well-known stays
+          # untouched so SSL/ACME challenges are never disturbed.
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-            .htaccess
             .well-known/**
