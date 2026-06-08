@@ -39,9 +39,8 @@ jobs:
           # Default is 30s; the populated prod web root takes longer to scan.
           timeout: 600000
           local-dir: ./
-          # Prod FTP account logs in inside public_html (web root) -> "./".
-          # Staging FTP account logs in at account home -> "public_html/".
-          server-dir: ${{ github.ref_name == 'main' && './' || 'public_html/' }}
+          # Both FTP accounts log in at their site's web root, so upload to "./".
+          server-dir: ./
           # Never upload repo/CI plumbing or touch server-managed files.
           exclude: |
             **/.git*
