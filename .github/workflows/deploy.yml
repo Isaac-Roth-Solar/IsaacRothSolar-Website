@@ -3,6 +3,10 @@ name: Deploy to Hostinger
 # Auto-deploys the static site to Hostinger over FTPS whenever code lands on
 # `main` (production) or `staging`. No more manual Redeploy in hPanel.
 #
+# Always overwrites: a reset step deletes the action's server-side sync-state
+# before each deploy, so every run re-uploads ALL files (never skips based on
+# stale memory). Uploads are additive — nothing on the server is mass-deleted.
+#
 # Each environment has its own Hostinger FTP account, scoped to that site's web
 # root, so files upload to "./". Branch selects which account to use.
 #
@@ -24,19 +28,33 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Pick the right FTP account based on the branch, once.
+    env:
+      FTP_HOST: ${{ github.ref_name == 'main' && secrets.FTP_HOST_PROD || secrets.FTP_HOST_STAGING }}
+      FTP_USER: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME_PROD || secrets.FTP_USERNAME_STAGING }}
+      FTP_PASS: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD_PROD || secrets.FTP_PASSWORD_STAGING }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Reset deploy state (force full overwrite)
+        run: |
+          # Delete the action's sync-state so the deploy re-uploads every file.
+          # "|| true" so a missing file or transient hiccup never fails the job.
+          curl --ssl-reqd -k --connect-timeout 30 \
+            -u "$FTP_USER:$FTP_PASS" \
+            -Q "DELE .ftp-deploy-sync-state.json" \
+            "ftp://$FTP_HOST/" || true
+
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ github.ref_name == 'main' && secrets.FTP_HOST_PROD || secrets.FTP_HOST_STAGING }}
-          username: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME_PROD || secrets.FTP_USERNAME_STAGING }}
-          password: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD_PROD || secrets.FTP_PASSWORD_STAGING }}
+          server: ${{ env.FTP_HOST }}
+          username: ${{ env.FTP_USER }}
+          password: ${{ env.FTP_PASS }}
           protocol: ftps
           port: 21
-          # Default is 30s; the populated prod web root takes longer to scan.
+          # Default is 30s; a populated web root takes longer to scan.
           timeout: 600000
           local-dir: ./
           # Both FTP accounts log in at their site's web root, so upload to "./".
