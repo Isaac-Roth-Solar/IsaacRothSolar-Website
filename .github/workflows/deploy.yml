@@ -1,12 +1,14 @@
 name: Deploy to Hostinger
 
 # Auto-deploys the static site to Hostinger over FTPS on pushes to `main`
-# (production) or `staging`. Files go straight to wherever the FTP account
-# lands ("./") — no public_html subfolder.
+# (production) or `staging`.
+#
+#   staging -> FTP lands on the web root        -> upload to "./"
+#   prod    -> FTP lands above a doubly-nested  -> upload to "public_html/public_html/"
+#              public_html; the live docroot is the inner one.
 #
 # Always overwrites: a reset step deletes the action's sync-state before each
-# deploy, so every run re-uploads ALL files. Uploads are additive (no mass
-# delete); .well-known is excluded so SSL is never disturbed.
+# deploy. Uploads are additive; .well-known is excluded so SSL is untouched.
 #
 # Required repository secrets:
 #   Production: FTP_HOST_PROD     FTP_USERNAME_PROD     FTP_PASSWORD_PROD
@@ -27,21 +29,25 @@ jobs:
       FTP_HOST: ${{ github.ref_name == 'main' && secrets.FTP_HOST_PROD || secrets.FTP_HOST_STAGING }}
       FTP_USER: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME_PROD || secrets.FTP_USERNAME_STAGING }}
       FTP_PASS: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD_PROD || secrets.FTP_PASSWORD_STAGING }}
+      SERVER_DIR: ${{ github.ref_name == 'main' && 'public_html/public_html/' || './' }}
+      STATE_PATH: ${{ github.ref_name == 'main' && 'public_html/public_html/.ftp-deploy-sync-state.json' || '.ftp-deploy-sync-state.json' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Show FTP layout (diagnostic)
         run: |
-          echo "Branch: ${{ github.ref_name }}  |  uploading to: ./ (FTP login dir)"
-          echo "--- contents of FTP login directory ---"
-          curl -s --ssl-reqd -k --connect-timeout 30 -u "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/" || true
+          echo "Branch: ${{ github.ref_name }}  |  uploading to: $SERVER_DIR"
+          for d in "" "public_html/" "public_html/public_html/"; do
+            echo "================ listing: /$d ================"
+            curl -s --ssl-reqd -k --connect-timeout 30 -u "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/$d" || true
+          done
 
       - name: Reset deploy state (force full overwrite)
         run: |
           curl --ssl-reqd -k --connect-timeout 30 \
             -u "$FTP_USER:$FTP_PASS" \
-            -Q "DELE .ftp-deploy-sync-state.json" \
+            -Q "DELE $STATE_PATH" \
             "ftp://$FTP_HOST/" || true
 
       - name: Deploy via FTPS
@@ -54,7 +60,7 @@ jobs:
           port: 21
           timeout: 600000
           local-dir: ./
-          server-dir: ./
+          server-dir: ${{ env.SERVER_DIR }}
           exclude: |
             **/.git*
             **/.git*/**
