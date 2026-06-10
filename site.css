@@ -834,6 +834,11 @@ img { display: block; max-width: 100%; }
 }
 .faq-item.open .faq-a { max-height: 500px; padding-top: 12px; }
 
+/* Hide the third-party click-to-call button injected via Google Tag Manager
+   (the floating green phone icon). Removed cleanly only by disabling its GTM
+   tag; this keeps it hidden on every viewport in the meantime. */
+#call-us-now-button { display: none !important; }
+
 /* ===== Floating CTA (mobile) ===== */
 .float-book {
   position: fixed;
