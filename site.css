@@ -853,6 +853,13 @@ img { display: block; max-width: 100%; }
   .hero-grid, .about-hero, .book-grid, .steps, .reviews, .footer-grid { grid-template-columns: 1fr !important; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
 
+  /* Grid items default to min-width:auto (min-content), which lets a wide child
+     (e.g. the stat row) stretch the whole column past the viewport and clip the
+     headline. Allow the column to shrink to the screen so text wraps correctly. */
+  .hero-grid > div, .book-grid > div { min-width: 0; }
+  /* Let the stats wrap instead of forcing a single over-wide row */
+  .hero-stat-row { flex-wrap: wrap; gap: 22px 28px; }
+
   /* Collapse the inline nav into a hamburger dropdown */
   .nav-toggle { display: flex; }
   .nav-links {
@@ -894,7 +901,6 @@ img { display: block; max-width: 100%; }
   .hero h1 {
     font-size: clamp(2.25rem, 11vw, 3rem);
     overflow-wrap: break-word;
-    word-break: break-word;
   }
 
   /* Stack the hero CTAs so both buttons stay fully visible */
