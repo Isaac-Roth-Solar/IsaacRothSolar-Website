@@ -3,6 +3,8 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+/* Guard against any element bleeding past the viewport edge on mobile */
+html, body { overflow-x: hidden; }
 html { scroll-behavior: smooth; }
 
 img { display: block; max-width: 100%; }
@@ -127,6 +129,31 @@ img { display: block; max-width: 100%; }
   background: var(--clay-400);
   border-radius: 2px;
 }
+
+/* Mobile hamburger toggle — hidden on desktop, shown via the responsive block */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 11px 9px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--stone-700);
+  transition: transform 200ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+.site-nav.nav-open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-nav.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.site-nav.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ===== Buttons ===== */
 .btn {
@@ -807,6 +834,11 @@ img { display: block; max-width: 100%; }
 }
 .faq-item.open .faq-a { max-height: 500px; padding-top: 12px; }
 
+/* Hide the third-party click-to-call button injected via Google Tag Manager
+   (the floating green phone icon). Removed cleanly only by disabling its GTM
+   tag; this keeps it hidden on every viewport in the meantime. */
+#call-us-now-button { display: none !important; }
+
 /* ===== Floating CTA (mobile) ===== */
 .float-book {
   position: fixed;
@@ -820,10 +852,58 @@ img { display: block; max-width: 100%; }
 @media (max-width: 920px) {
   .hero-grid, .about-hero, .book-grid, .steps, .reviews, .footer-grid { grid-template-columns: 1fr !important; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
-  .nav-links { display: none; }
-  .nav-links .book-btn { display: inline-flex; }
+
+  /* Grid items default to min-width:auto (min-content), which lets a wide child
+     (e.g. the stat row) stretch the whole column past the viewport and clip the
+     headline. Allow the column to shrink to the screen so text wraps correctly. */
+  .hero-grid > div, .book-grid > div { min-width: 0; }
+  /* Let the stats wrap instead of forcing a single over-wide row */
+  .hero-stat-row { flex-wrap: wrap; gap: 22px 28px; }
+
+  /* Collapse the inline nav into a hamburger dropdown */
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--cream-200);
+    box-shadow: var(--shadow-md);
+    padding: 8px 0;
+  }
+  .site-nav.nav-open .nav-links { display: flex; }
+  .nav-links a { padding: 14px 28px; }
+  .nav-links a.active::after { display: none; }
+  .nav-links .book-btn {
+    margin: 10px 28px 6px;
+    justify-content: center;
+  }
+
   .float-book { display: block; }
+
+  /* Keep the floating stat card inside the viewport (was right: -22px) */
+  .hero-photo .floating-card { right: 12px; }
+
   .svc-row { grid-template-columns: 60px 1fr; }
   .svc-row .svc-desc, .svc-row .svc-meta { grid-column: 2; text-align: left; }
   .bio-cols { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .container, .container-narrow { padding: 0 20px; }
+
+  /* Allow long uppercase headlines to wrap instead of clipping */
+  .hero h1 {
+    font-size: clamp(2.25rem, 11vw, 3rem);
+    overflow-wrap: break-word;
+  }
+
+  /* Stack the hero CTAs so both buttons stay fully visible */
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
 }
