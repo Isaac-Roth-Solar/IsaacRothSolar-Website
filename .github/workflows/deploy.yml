@@ -3,9 +3,12 @@ name: Deploy to Hostinger
 # Auto-deploys the static site to Hostinger over FTPS on pushes to `main`
 # (production) or `staging`.
 #
-#   Each FTP account is chrooted to its own live docroot, so both
-#   environments upload to "./". (Prod previously targeted a nested
-#   public_html/public_html/ that turned out NOT to be the live docroot.)
+#   staging -> chrooted FTP account, lands in stag docroot -> upload to "./"
+#   prod    -> master account (u496029094), lands in home   -> upload to
+#              "domains/isaacrothsolar.com/public_html/" (real apex docroot,
+#              confirmed by recon 2026-06-19).
+#   NOTE: FTP_*_PROD secrets MUST be set. If empty, the main-branch ternary
+#   below silently falls back to the staging creds and prod never updates.
 #
 # Always overwrites: a reset step deletes the action's sync-state before each
 # deploy. Uploads are additive; .well-known is excluded so SSL is untouched.
@@ -29,8 +32,8 @@ jobs:
       FTP_HOST: ${{ github.ref_name == 'main' && secrets.FTP_HOST_PROD || secrets.FTP_HOST_STAGING }}
       FTP_USER: ${{ github.ref_name == 'main' && secrets.FTP_USERNAME_PROD || secrets.FTP_USERNAME_STAGING }}
       FTP_PASS: ${{ github.ref_name == 'main' && secrets.FTP_PASSWORD_PROD || secrets.FTP_PASSWORD_STAGING }}
-      SERVER_DIR: ./
-      STATE_PATH: .ftp-deploy-sync-state.json
+      SERVER_DIR: ${{ github.ref_name == 'main' && 'domains/isaacrothsolar.com/public_html/' || './' }}
+      STATE_PATH: ${{ github.ref_name == 'main' && 'domains/isaacrothsolar.com/public_html/.ftp-deploy-sync-state.json' || '.ftp-deploy-sync-state.json' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -51,7 +54,6 @@ jobs:
             "ftp://$FTP_HOST/" || true
 
       - name: Deploy via FTPS
-        if: false  # RECON ONLY (2026-06-19): confirming prod FTP landing dir before re-enabling upload
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ env.FTP_HOST }}
