@@ -41,10 +41,8 @@ jobs:
       - name: Show FTP layout (diagnostic)
         run: |
           echo "Branch: ${{ github.ref_name }}  |  uploading to: $SERVER_DIR"
-          for d in "" "public_html/" "domains/" "domains/isaacrothsolar.com/" "domains/isaacrothsolar.com/public_html/"; do
-            echo "================ listing: /$d ================"
-            curl -s --ssl-reqd -k --connect-timeout 30 -u "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/$d" || true
-          done
+          echo "================ listing target: /$SERVER_DIR ================"
+          curl -s --ssl-reqd -k --connect-timeout 30 -u "$FTP_USER:$FTP_PASS" "ftp://$FTP_HOST/$SERVER_DIR" || true
 
       - name: Reset deploy state (force full overwrite)
         run: |
