@@ -51,6 +51,24 @@ jobs:
             -Q "DELE $STATE_PATH" \
             "ftp://$FTP_HOST/" || true
 
+      # The repo's robots.txt is the production one (allow-all + sitemap).
+      # Any non-prod deploy is a full mirror of the live site, so it gets a
+      # blocking robots.txt written over it just before upload. This is done
+      # here rather than by keeping a different file on the staging branch, so
+      # the two branches' trees stay identical and nothing has to be remembered
+      # at merge time.
+      - name: Block search engines on non-production deploys
+        if: github.ref_name != 'main'
+        run: |
+          cat > robots.txt <<'ROBOTS'
+          # Staging mirror — not for indexing.
+          # The production robots.txt lives in the repo and ships on main.
+          User-agent: *
+          Disallow: /
+          ROBOTS
+          echo "--- robots.txt written for ${{ github.ref_name }} ---"
+          cat robots.txt
+
       - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
