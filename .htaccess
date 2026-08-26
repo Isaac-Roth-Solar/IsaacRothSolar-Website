@@ -1,3 +1,16 @@
+# Canonical host: send www to the bare domain so every page has one URL.
+# Without this, www.isaacrothsolar.com and isaacrothsolar.com both return 200
+# with identical content, which splits search signals across duplicate URLs.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # /index.html is the same page as / — collapse it onto the bare path.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L]
+</IfModule>
+
 # Cache policy for Isaac Roth Solar
 # HTML is always revalidated (edits show immediately, no manual purge).
 # Static assets are cached long; bump a ?v= on the file when it changes.

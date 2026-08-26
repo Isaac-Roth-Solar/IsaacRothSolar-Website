@@ -1,0 +1,6 @@
+# robots.txt for isaacrothsolar.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://isaacrothsolar.com/sitemap.xml
