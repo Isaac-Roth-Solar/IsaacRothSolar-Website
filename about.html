@@ -40,13 +40,7 @@
       "addressCountry": "US"
     },
     "founder": {
-      "@type": "Person",
-      "name": "Isaac Roth",
-      "jobTitle": "Independent Solar Consultant",
-      "image": "https://isaacrothsolar.com/assets/photos/isaac-portrait-900.webp",
-      "worksFor": {
-        "@id": "https://isaacrothsolar.com/#business"
-      }
+      "@id": "https://isaacrothsolar.com/#isaac"
     },
     "knowsAbout": [
       "Residential rooftop solar",
@@ -195,6 +189,96 @@
         "name": "Free 45-minute solar consultation"
       }
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": "https://isaacrothsolar.com/about.html#profilepage",
+        "url": "https://isaacrothsolar.com/about.html",
+        "name": "About Isaac · Isaac Roth Solar",
+        "description": "Isaac Roth — Oakland-raised, independent solar consultant helping East Bay homeowners understand solar. 200+ installs and counting.",
+        "inLanguage": "en-US",
+        "isPartOf": { "@id": "https://isaacrothsolar.com/#website" },
+        "about": { "@id": "https://isaacrothsolar.com/#isaac" },
+        "mainEntity": { "@id": "https://isaacrothsolar.com/#isaac" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://isaacrothsolar.com/#isaac",
+        "name": "Isaac Roth",
+        "givenName": "Isaac",
+        "familyName": "Roth",
+        "url": "https://isaacrothsolar.com/about.html",
+        "mainEntityOfPage": { "@id": "https://isaacrothsolar.com/about.html#profilepage" },
+        "jobTitle": "Independent Solar Consultant",
+        "description": "Oakland-raised independent solar consultant who has helped more than 200 East Bay homeowners evaluate rooftop solar, compare equipment and installers, and decide whether solar is the right fit for their home. Started Isaac Roth Solar after a solar sales team he worked on shut down following the end of NEM 2, with a focus on educating homeowners rather than selling systems.",
+        "knowsAbout": [
+          "Residential rooftop solar design and installation",
+          "Home battery storage",
+          "EV charger installation",
+          "Electrical panel upgrades and rewires",
+          "Solar permitting and PG&E interconnection",
+          "Net energy metering (NEM 2 and NEM 3)",
+          "Solar contract and proposal review",
+          "Home electrification planning",
+          "Solar system service, repair, and troubleshooting"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Solar Consultant",
+          "occupationLocation": {
+            "@type": "City",
+            "name": "Oakland",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Oakland",
+              "addressRegion": "CA",
+              "addressCountry": "US"
+            }
+          },
+          "skills": "Residential solar system design, battery storage sizing, solar proposal and contract review, utility interconnection and permitting, home electrification planning"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Oakland, California",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Oakland",
+            "addressRegion": "CA",
+            "addressCountry": "US"
+          }
+        },
+        "workLocation": {
+          "@type": "Place",
+          "name": "East Bay, California"
+        },
+        "email": "isaacrothsolar@gmail.com",
+        "telephone": "+1-510-926-8332",
+        "image": {
+          "@type": "ImageObject",
+          "@id": "https://isaacrothsolar.com/about.html#isaac-photo",
+          "url": "https://isaacrothsolar.com/assets/photos/isaac-portrait-900.webp",
+          "contentUrl": "https://isaacrothsolar.com/assets/photos/isaac-portrait-900.webp",
+          "width": 900,
+          "height": 1200,
+          "caption": "Isaac Roth, independent solar consultant, Oakland"
+        },
+        "worksFor": { "@id": "https://isaacrothsolar.com/#business" },
+        "founderOf": { "@id": "https://isaacrothsolar.com/#business" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://isaacrothsolar.com/#website",
+        "url": "https://isaacrothsolar.com/",
+        "name": "Isaac Roth Solar",
+        "publisher": { "@id": "https://isaacrothsolar.com/#business" },
+        "inLanguage": "en-US"
+      }
+    ]
   }
   </script>
 </head>
