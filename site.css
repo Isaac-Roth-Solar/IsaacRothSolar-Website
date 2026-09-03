@@ -446,7 +446,8 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===== Gallery ===== */
-.gallery {
+.gallery,
+.portraits-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
@@ -486,6 +487,11 @@ img { display: block; max-width: 100%; }
   color: var(--stone-700);
   font-weight: 600;
 }
+/* "Battery commissioning" sets a min-content width wider than a 2-up tile on a
+   phone, pushing the date pill outside the card. Only this grid needs the wrap;
+   the index gallery's captions fit on one line and are left alone. */
+.portraits-grid .gallery-item .meta { flex-wrap: wrap; }
+
 .gallery-item .meta .kw {
   font-size: 11px;
   font-weight: 700;
@@ -851,7 +857,7 @@ img { display: block; max-width: 100%; }
 /* ===== Responsive ===== */
 @media (max-width: 920px) {
   .hero-grid, .about-hero, .book-grid, .steps, .reviews, .footer-grid { grid-template-columns: 1fr !important; }
-  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery, .portraits-grid { grid-template-columns: repeat(2, 1fr); }
 
   /* Grid items default to min-width:auto (min-content), which lets a wide child
      (e.g. the stat row) stretch the whole column past the viewport and clip the
