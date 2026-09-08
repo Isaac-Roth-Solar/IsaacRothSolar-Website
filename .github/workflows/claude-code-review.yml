@@ -31,40 +31,10 @@ jobs:
         with:
           fetch-depth: 1
 
-      # Workaround for a broken upstream installer. claude-code-action installs
-      # the CLI itself; as of 2.1.265 that install prints "successfully installed"
-      # and exits 0 but never creates the ~/.local/bin/claude launcher, so the
-      # action's next step dies with:
-      #
-      #   ENOENT: no such file or directory, posix_spawn '/home/runner/.local/bin/claude'
-      #
-      # Installing the stable channel first produces a working binary, and
-      # path_to_claude_code_executable below points the action straight at it.
-      #
-      # The path is resolved through the launcher symlink to the real versioned
-      # binary (~/.local/share/claude/versions/<version>) rather than passing
-      # ~/.local/bin/claude: that keeps the action pinned to this install no
-      # matter what its own install step does to ~/.local/bin afterwards.
-      #
-      # --version is here to fail this step loudly if the workaround ever stops
-      # producing a usable binary, rather than letting the action fail later
-      # where the cause is far less obvious.
-      #
-      # Remove this step, and the input below, once a released installer creates
-      # the launcher again.
-      - name: Install a working Claude Code CLI
-        id: claude-cli
-        run: |
-          curl -fsSL https://claude.ai/install.sh | bash -s stable
-          cli="$(readlink -f "$HOME/.local/bin/claude")"
-          "$cli" --version
-          echo "path=$cli" >> "$GITHUB_OUTPUT"
-
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
         with:
-          path_to_claude_code_executable: ${{ steps.claude-cli.outputs.path }}
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
