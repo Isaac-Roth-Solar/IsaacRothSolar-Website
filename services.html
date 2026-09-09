@@ -158,7 +158,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-rooftop-solar",
             "name": "Rooftop solar — design & install",
+            "serviceType": "Residential rooftop solar design and installation",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Full system: panels, inverter, conduit, racking, and monitoring, permitted and inspected with PG&E paperwork handled."
           }
         },
@@ -166,7 +175,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-battery-storage",
             "name": "Battery storage",
+            "serviceType": "Home battery storage sizing and installation",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Enphase, Franklin, or Tesla Powerwall battery storage sized to your usage pattern and outage history."
           }
         },
@@ -174,7 +192,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-ev-charger",
             "name": "EV charger install",
+            "serviceType": "Level 2 EV charger installation",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Level-2 EV charger wired off a new solar service or your existing panel."
           }
         },
@@ -182,7 +209,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-panel-upgrade",
             "name": "Panel upgrades & rewires",
+            "serviceType": "Electrical panel upgrade and rewiring",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Main panel upgrades and rewires, including replacement of older Federal Pacific and Zinsco panels."
           }
         },
@@ -190,7 +226,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-permitting",
             "name": "Permitting & PG&E paperwork",
+            "serviceType": "Solar permitting and PG&E interconnection",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "City permits, structural and electrical sign-off, interconnection application, and net-metering agreement."
           }
         },
@@ -198,7 +243,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-solar-repair",
             "name": "Service, repair, and tune-ups",
+            "serviceType": "Solar system service, repair, and diagnostics",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Diagnostics and repair for underperforming or inherited solar systems, including inverter faults."
           }
         }
@@ -228,6 +282,12 @@
     "@type": "FAQPage",
     "@id": "https://isaacrothsolar.com/services.html#faq",
     "url": "https://isaacrothsolar.com/services.html",
+    "isPartOf": {
+      "@id": "https://isaacrothsolar.com/services.html#webpage"
+    },
+    "breadcrumb": {
+      "@id": "https://isaacrothsolar.com/services.html#breadcrumb"
+    },
     "name": "Questions homeowners ask most",
     "about": {
       "@id": "https://isaacrothsolar.com/#business"
@@ -288,6 +348,61 @@
           "@type": "Answer",
           "text": "The right system size depends on your energy usage, roof layout, and whether you're adding things like an EV or heat pump. Under NEM 3, bigger isn't always better. The goal is to design a system that fits your needs, not simply maximize panel count."
         }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://isaacrothsolar.com/#website",
+        "url": "https://isaacrothsolar.com/",
+        "name": "Isaac Roth Solar",
+        "publisher": {
+          "@id": "https://isaacrothsolar.com/#business"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://isaacrothsolar.com/services.html#webpage",
+        "url": "https://isaacrothsolar.com/services.html",
+        "name": "Services · Isaac Roth Solar",
+        "description": "Solar guidance from start to finish — rooftop solar, battery storage, EV chargers, panel upgrades, and permitting across the East Bay.",
+        "inLanguage": "en-US",
+        "isPartOf": {
+          "@id": "https://isaacrothsolar.com/#website"
+        },
+        "about": {
+          "@id": "https://isaacrothsolar.com/#business"
+        },
+        "breadcrumb": {
+          "@id": "https://isaacrothsolar.com/services.html#breadcrumb"
+        },
+        "hasPart": {
+          "@id": "https://isaacrothsolar.com/services.html#faq"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://isaacrothsolar.com/services.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://isaacrothsolar.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://isaacrothsolar.com/services.html"
+          }
+        ]
       }
     ]
   }

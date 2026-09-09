@@ -55,7 +55,9 @@
     "sameAs": [
       "https://nextdoor.com/pages/isaac-roth-solar-oakland-ca/"
     ],
-    "mainEntityOfPage": "https://isaacrothsolar.com/",
+    "mainEntityOfPage": {
+      "@id": "https://isaacrothsolar.com/#webpage"
+    },
     "telephone": "+1-510-926-8332",
     "email": "isaacrothsolar@gmail.com",
     "logo": "https://isaacrothsolar.com/icon-512.png",
@@ -165,7 +167,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-rooftop-solar",
             "name": "Rooftop solar — design & install",
+            "serviceType": "Residential rooftop solar design and installation",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Full system: panels, inverter, conduit, racking, and monitoring, permitted and inspected with PG&E paperwork handled."
           }
         },
@@ -173,7 +184,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-battery-storage",
             "name": "Battery storage",
+            "serviceType": "Home battery storage sizing and installation",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Enphase, Franklin, or Tesla Powerwall battery storage sized to your usage pattern and outage history."
           }
         },
@@ -181,7 +201,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-ev-charger",
             "name": "EV charger install",
+            "serviceType": "Level 2 EV charger installation",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Level-2 EV charger wired off a new solar service or your existing panel."
           }
         },
@@ -189,7 +218,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-panel-upgrade",
             "name": "Panel upgrades & rewires",
+            "serviceType": "Electrical panel upgrade and rewiring",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Main panel upgrades and rewires, including replacement of older Federal Pacific and Zinsco panels."
           }
         },
@@ -197,7 +235,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-permitting",
             "name": "Permitting & PG&E paperwork",
+            "serviceType": "Solar permitting and PG&E interconnection",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "City permits, structural and electrical sign-off, interconnection application, and net-metering agreement."
           }
         },
@@ -205,7 +252,16 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
+            "@id": "https://isaacrothsolar.com/#service-solar-repair",
             "name": "Service, repair, and tune-ups",
+            "serviceType": "Solar system service, repair, and diagnostics",
+            "provider": {
+              "@id": "https://isaacrothsolar.com/#business"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "East Bay, California"
+            },
             "description": "Diagnostics and repair for underperforming or inherited solar systems, including inverter faults."
           }
         }
@@ -289,6 +345,45 @@
         "name": "Free 45-minute solar consultation"
       }
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://isaacrothsolar.com/#website",
+        "url": "https://isaacrothsolar.com/",
+        "name": "Isaac Roth Solar",
+        "publisher": {
+          "@id": "https://isaacrothsolar.com/#business"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://isaacrothsolar.com/#webpage",
+        "url": "https://isaacrothsolar.com/",
+        "name": "Isaac Roth Solar — Oakland Raised. Honest Solar Guidance.",
+        "description": "Independent solar consulting in Oakland, Berkeley, Piedmont and the East Bay. Honest guidance on pricing, equipment, and whether solar makes sense for your home.",
+        "inLanguage": "en-US",
+        "isPartOf": {
+          "@id": "https://isaacrothsolar.com/#website"
+        },
+        "about": {
+          "@id": "https://isaacrothsolar.com/#business"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "@id": "https://isaacrothsolar.com/#primaryimage",
+          "url": "https://isaacrothsolar.com/assets/photos/isaac-lake-merritt-1600.webp",
+          "width": 1600,
+          "height": 1200,
+          "caption": "Isaac Roth at Lake Merritt in Oakland"
+        }
+      }
+    ]
   }
   </script>
 </head>
