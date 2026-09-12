@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Keep <lastmod> honest: update it when a page's content actually changes.
+  Dates that never move, or that move on every deploy regardless of content,
+  both get discounted as a crawl signal.
+
+  privacy.html, terms.html and 404.html are deliberately absent — all three
+  are noindex.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
     <loc>https://isaacrothsolar.com/</loc>
-    <lastmod>2026-06-19</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://isaacrothsolar.com/services.html</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://isaacrothsolar.com/about.html</loc>
-    <lastmod>2026-06-19</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
