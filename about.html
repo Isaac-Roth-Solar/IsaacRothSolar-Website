@@ -10,7 +10,7 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-K43JTB3T');</script>
   <!-- End Google Tag Manager -->
-  <title>About Isaac · Isaac Roth Solar</title>
+  <title>About Isaac Roth — Independent Solar Consultant, Oakland</title>
   <meta name="description" content="Isaac Roth — Oakland-raised, independent solar consultant helping East Bay homeowners understand solar. 200+ installs and counting.">
   <link rel="canonical" href="https://isaacrothsolar.com/about.html">
 
@@ -19,7 +19,7 @@
   <meta property="og:site_name" content="Isaac Roth Solar">
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://isaacrothsolar.com/about.html">
-  <meta property="og:title" content="About Isaac · Isaac Roth Solar">
+  <meta property="og:title" content="About Isaac Roth — Independent Solar Consultant, Oakland">
   <meta property="og:description" content="Isaac Roth — Oakland-raised, independent solar consultant helping East Bay homeowners understand solar. 200+ installs and counting.">
   <meta property="og:image" content="https://isaacrothsolar.com/assets/og/og-about.jpg">
   <meta property="og:image:type" content="image/jpeg">
@@ -29,13 +29,24 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Isaac · Isaac Roth Solar">
+  <meta name="twitter:title" content="About Isaac Roth — Independent Solar Consultant, Oakland">
   <meta name="twitter:description" content="Isaac Roth — Oakland-raised, independent solar consultant helping East Bay homeowners understand solar. 200+ installs and counting.">
   <meta name="twitter:image" content="https://isaacrothsolar.com/assets/og/og-about.jpg">
   <meta name="twitter:image:alt" content="Isaac Roth, Oakland-raised independent solar consultant, beside the headline “I’m Isaac. I grew up in Oakland.”">
-  <link rel="stylesheet" href="colors_and_type.css">
-  <link rel="stylesheet" href="site.css?v=2">
+  <!-- Fonts load via <link> here, not an @import inside colors_and_type.css.
+       An @import chains the requests (page CSS -> fonts CSS -> woff2) and blocks
+       first paint on all three; declared here they download in parallel. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;500;600;700&amp;family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,800&amp;family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,500;1,700&amp;display=swap">
+  <link rel="stylesheet" href="colors_and_type.css?v=2">
+  <link rel="stylesheet" href="site.css?v=3">
   <link rel="icon" type="image/svg+xml" href="assets/logo/sun-mark.svg">
+  <!-- sameAs below is how Google ties this site to the same business elsewhere on
+       the web. It currently lists only Nextdoor. Add each profile URL as it exists
+       — Google Business Profile first, then Yelp, Instagram, LinkedIn, Facebook,
+       EnergySage. Keep the name, phone and service area identical across all of
+       them; the consistency is the ranking signal, not the count. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -395,6 +406,7 @@
       <div class="nav-links" id="nav-links">
         <a href="/">Home</a>
         <a href="services.html">Services</a>
+        <a href="/guides/">Guides</a>
         <a href="about.html" class="active">About</a>
         <a class="btn btn-primary book-btn" href="/#book">Book a Visit with Isaac</a>
       </div>
@@ -444,6 +456,12 @@
               </p>
               <p>
                 <em>More than 200 East Bay homeowners</em> later, I'm still helping people navigate the complex and constantly changing world of solar. My goal is simple: first, figure out whether solar makes sense for your home. If it does, help you find the option that's truly the best fit.
+              </p>
+              <p>
+                Some of that education now lives on this site rather than only in my head &mdash;
+                I've written up <a href="/guides/">the questions I answer on almost every visit</a>,
+                from whether solar still pencils out under NEM 3 to how to read a quote without
+                getting taken.
               </p>
               <p>
                 When I'm not on a roof or reviewing proposals, you'll probably find me somewhere around Oakland. I love hiking in the redwoods, playing basketball, making music, and supporting the local restaurants I grew up with.
@@ -582,6 +600,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="about.html">About</a></li>
+            <li><a href="/guides/">Guides</a></li>
             <li><a href="/#book">Book a Visit</a></li>
           </ul>
         </div>
@@ -595,10 +614,11 @@
         <div>
           <h4>Coverage</h4>
           <ul>
-            <li>Oakland</li>
-            <li>Berkeley</li>
-            <li>Piedmont</li>
-            <li>Alameda · Albany</li>
+            <li><a href="/oakland/">Oakland</a></li>
+            <li><a href="/berkeley/">Berkeley</a></li>
+            <li><a href="/piedmont/">Piedmont</a></li>
+            <li><a href="/alameda/">Alameda</a></li>
+            <li><a href="/san-leandro/">San Leandro</a></li>
           </ul>
         </div>
       </div>

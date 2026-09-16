@@ -2,9 +2,14 @@
    Isaac Roth Solar — Foundational tokens
    Colors, type, spacing, radii, shadows.
    Import this once at the top of any HTML page.
-   ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;500;600;700&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,500;1,700&display=swap');
+   Fonts are NOT imported here. An @import would chain the requests — the
+   browser must fetch and parse this file before it discovers the font CSS,
+   then fetch that before the woff2 files — and blocks first paint on all
+   three round trips. Each page declares them with <link> + preconnect in
+   its <head> instead, so they download in parallel with this file. Keep the
+   family/weight list in those <link> tags in sync with the tokens below.
+   ============================================================ */
 
 :root {
   /* ---------- BRAND COLORS ---------- */

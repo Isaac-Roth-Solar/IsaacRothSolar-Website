@@ -11,6 +11,26 @@
   RewriteRule ^ / [R=301,L]
 </IfModule>
 
+# Custom 404 so dead links land on the site, not a server default page.
+ErrorDocument 404 /404.html
+
+# Compression. Text assets are served uncompressed without this — the HTML is
+# ~30KB and the two stylesheets ~33KB, most of which is whitespace and repeated
+# token names. Brotli first where available, gzip as the fallback.
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS application/xml application/rss+xml
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml application/manifest+json
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+</IfModule>
+
 # Cache policy for Isaac Roth Solar
 # HTML is always revalidated (edits show immediately, no manual purge).
 # Static assets are cached long; bump a ?v= on the file when it changes.

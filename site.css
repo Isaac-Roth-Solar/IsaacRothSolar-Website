@@ -206,6 +206,19 @@ img { display: block; max-width: 100%; }
 
 .btn-lg { padding: 17px 28px; font-size: 16px; border-radius: 14px; }
 
+/* Link from an FAQ answer out to the full guide on that question. Sits inline
+   at the end of the answer text, so it needs to read as a continuation rather
+   than a button. */
+.faq-a .faq-more {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--moss-500);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.faq-a .faq-more:hover { color: var(--moss-700); text-decoration: underline; }
+
 /* ===== Hero ===== */
 .hero {
   position: relative;
