@@ -85,3 +85,6 @@ jobs:
             **/.git*/**
             **/node_modules/**
             .well-known/**
+            tools/
+            tools/**
+            .venv/**
